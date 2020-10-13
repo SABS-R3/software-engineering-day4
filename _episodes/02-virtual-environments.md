@@ -14,7 +14,7 @@ keypoints:
 
 ## Virtual Environments and Managing Dependencies
 
-See topic [video lecture](https://www.youtube.com/watch?v=hDSKafGlgWI), and [PowerPoint slides](../slides/3.1-Development-Practices.pptx) used with per-slide notes.
+See topic [video lecture](https://www.youtube.com/watch?v=hDSKafGlgWI), and [PowerPoint slides](../slides/4.1-Virtual-Environments-and-Packaging.pptx) used with per-slide notes.
 
 ### Why do we have Dependencies?
 
