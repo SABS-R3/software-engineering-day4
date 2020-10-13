@@ -13,3 +13,4 @@ _site
 .idea/
 _site/
 venv/
+.ruby-version
