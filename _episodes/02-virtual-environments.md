@@ -5,9 +5,10 @@ exercises: 60
 questions:
 - "What is a virtual environment?"
 - "What are the benefits of using a virtual environment?"
+- "How can I test my code with a different version of Python?"
 objectives:
 - "Explain the features and benefits of virtual environments."
-- "Outline the steps necessary for sharing code with others."
+- "Use pyenv to switch between multiple versions of Python."
 keypoints:
 - "Virtual environments help us to isolate our dependencies from the system."
 ---
@@ -45,7 +46,7 @@ cd 2020-se-day3/code
 ## Why do we have Dependencies?
 
 - Don't need to write everything ourselves
-- If there's an established library / package that does what we need consider using it
+- If there's an established library / package that does what we need, consider using it
 - But adding a new dependency is adding risk
   - A new dependency might conflict with our other dependencies
   - It might have bugs that affect the correctness of our project
@@ -70,7 +71,7 @@ The API documentation we prepared with docstrings and Sphinx is especially usefu
 
 The Software Sustainability Institute produced some guides that may be useful when you're thinking about adding a new dependency.
 They're a bit dated, but most of the points are still valid.
-See the pages on [choosing dependencies](https://software.ac.uk/choosing-right-open-source-software-your-project) and [avoiding dependency problems](https://software.ac.uk/resources/guides/defending-your-code-against-dependency-problems#node-252).
+See the pages on [choosing dependencies](https://software.ac.uk/choosing-right-open-source-software-your-project) and [avoiding dependency problems](https://software.ac.uk/resources/guides/defending-your-code-against-dependency-problems).
 
 
 ## Dependency Hell and Some Solutions
@@ -94,6 +95,9 @@ If we've added new features, but we've not broken any behaviour that people migh
 If we have broken some behaviour that people might rely on, we increment the first number, set the other two to zero and call it a **major release**.
 
 The set of behaviour that we expect people to rely on is known as our **public API**.
+We should take great care to minimise changes to our public API once we know other people might be using our code.
+To signify that we're still in the early stages of a project and we might have to make major changes, we can use a `0.x.y` version number.
+Releases with a major version of zero, are understood to be unstable - when we want to say we're ready with a stable release, we increment to version `1.0.0`.
 
 For different types of software this can mean slightly different things.
 For a library, which other developers will integrate into their own software, it is the programmatic API, the set of classes, functions and data that the library exposes.
@@ -122,23 +126,134 @@ Here are some typical virtual environment use cases:
 
 You do not have to worry too much about specific versions of packages that your project depends on most of the time. Virtual environments enable you to always use the latest available version without specifying it explicitly. They also enable you to use a specific older version of a package for your project, should you need to.
 
-When we install Python packages
-
 ### Requirements Files
-
-`requirements.txt`
 
 If we're going to be adding dependencies to our project, we need a way to tell people what these are.
 When we share our code with someone else, they'll need to be able to install the same things, and possibly even the same versions of the same things.
+Pip has some more features which help us manage this.
 
-Pip comes with some features to help us with this
+Firstly, to list the packages we have installed, we can use the list command:
+
+~~~
+pip list
+~~~
+{: .language-bash}
+
+If you don't see any listed packages, you're probably either in a new virtual environment, or not in a virtual environment at all.
+Since we've been installing everything so far, in virtual environments, there shouldn't be anything installed in your main version of Python.
+Try activating one of our previous virtual environments, or creating a new one and installing a few packages to see if they show up now.
+
+List is useful if we want to check if we remembered to install a particular package, but we have another command that's more useful for sharing our package list:
+
+~~~
+pip freeze
+~~~
+{: .language-bash}
+
+The freeze command shows us all of our installed packages with the version numbers.
+By saving this into a file, we can make sure that other people using our code have the same versions installed:
+
+~~~
+pip freeze > requirements.txt
+~~~
+{: .language-bash}
+
+If you open this `requirements.txt` file using VSCode, you should see that it contains the output of `pip freeze`.
+
+When we need to install all our dependencies, we can get pip to use this file:
+
+~~~
+pip install -r requirements.txt
+~~~
+{: .language-bash}
 
 ### Different Python Versions
 
-`pyenv`
+Sometimes, particularly if we're developing a larger piece of software, it can be useful to be able to test with multiple different versions of Python.
+This is where pyenv comes in.
+Pyenv is a tool which allows us to have multiple versions of Python installed in parallel, and switch between them easily.
+For an explanation of how it works, and the differences between pyenv an a virtual environment tool, see [their documentation](https://github.com/pyenv/pyenv).
 
-- Fork of rbenv
-- https://github.com/pyenv/pyenv
+Before we go any further, let's make sure we don't have any virtual environments currently activated:
 
+~~~
+deactivate
+~~~
+{: .language-bash}
+
+The recommended install method on Linux is by downloading and running a Bash script from their GitHub repository.
+To do this from the command line, we can use a tool called `curl`.
+Since `curl` may not be installed by default, we should install it ourselves using the Ubuntu package manager `apt-get`.
+We'll also need an SSL library (helps us manage securely connecting to the internet) to install new versions of Python later, so we'll install that now as well.
+When we do `sudo apt-get`, we need to enter our password, so the computer can check that we do actually have permission to install software.
+Once we've installed `curl`, then we can install pyenv:
+
+~~~
+sudo apt-get update
+sudo apt-get install curl libssl-dev
+curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+~~~
+{: .language-bash}
+
+> ## Security Alert!
+>
+> Be very careful running scripts you download from the internet.
+> Particularly if the script has to be run with `sudo` (this one doesn't).
+> The `sudo` command runs a program with admin permissions, so handle with care.
+{: .callout}
+
+There's one last step we need to do - add pyenv to our PATH.
+The PATH (or just path) is the list of directories that our shell will look in when we ask it to find and run a program for us.
+Since pyenv installs into a new directory that it created itself, we need to add that directory to the PATH, before Bash can find pyenv for us.
+
+To do this, we need to add a couple of lines to the bottom of our `.bashrc` file.
+The easiest way to find this file is to open it in VSCode from the terminal:
+
+~~~
+cd
+code .bashrc
+~~~
+{: .language-bash}
+
+The lines we need to add to the bottom are:
+
+~~~
+export PATH="/home/sabsr3/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+~~~
+{: .source}
+
+Take care that these lines are correct before saving the file.
+Now close and reopen your terminal, so that it can get the new configuration.
+With the installation process completed, we should now be able to find pyenv:
+
+~~~
+which pyenv
+~~~
+{: .language-bash}
+
+~~~
+/home/sabsr3/.pyenv/bin/pyenv
+~~~
+{: .output}
+
+Let's say we want to try out the latest development version of Python (3.10-dev at the time of writing), we can install this with pyenv.
+Be aware that this might take a couple of minutes to complete, as it's downloading and configuring a full installation of a new version of Python.
+
+~~~
+pyenv install 3.10-dev
+~~~
+{: .language-bash}
+
+Now, in our code directory, we can tell pyenv which version we want to use:
+
+~~~
+pyenv local 3.10-dev
+~~~
+{: .language-bash}
+
+Now, whenever we use Python in this directory, it will be our new Python 3.10 installation.
+We can even use this Python to create a new virtual environment.
 
 {% include links.md %}

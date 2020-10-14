@@ -4,7 +4,7 @@ teaching: 0
 exercises: 90
 questions:
 - "How do we prepare our code for sharing as a Python package?"
-- "How do we release our code for other people to install?"
+- "How do we release our project for other people to install?"
 objectives:
 - "Describe the steps necessary for sharing Python code as installable packages."
 - "Use Poetry to prepare an installable package."
@@ -18,9 +18,9 @@ keypoints:
 
 ## Where do Packages Come From?
 
-All the packages we've installed previously, whether using `pip` or `conda`, were written by someone and uploaded to a **Package Index / Repository**.
+All the dependencies we've installed previously with `pip` were written by someone else and uploaded to a **Package Index / Repository**.
 
-We'll look at two different methods for packaging our code.
+In this session we'll be looking at two different methods for building an installable package from our code.
 The first, using a tool called **Poetry**, is the simpler of the two methods, so we'll walk through the complete packaging process and end up with a package uploaded to the PyPI test site.
 The second method, using **setup.py**, is the more traditional method and gives us full control, but is more complicated.
 
@@ -28,21 +28,16 @@ The second method, using **setup.py**, is the more traditional method and gives 
 
 ### Installing Poetry
 
-The recommended install method on Linux is by downloading and running a Python script from their GitHub repository.
-To do this from the command line, we can use a tool called `curl`.
-Since `curl` may not be installed by default, we should install it ourselves using the Ubuntu package manager `apt-get`.
-When we do `sudo apt-get`, we need to enter our password, so the computer can check that we do actually have permission to install software.
-Once we've installed `curl`, then we can install Poetry:
+The recommended install method for Poetry is similar to the method we used for pyenv.
+This time it's a Python script we need to download and run:
 
 ~~~
-sudo apt-get update
-sudo apt-get install curl
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
 ~~~
 {: .language-bash}
 
 While Poetry is installing, it lets us know that we might have to run an extra command before we can use it.
-Once it's finished installing, the simplest thing to do here is to just close our termainl and open another one.
+Once it's finished installing, the simplest thing to do here is to just close our terminal and open another one.
 Then the changes that Poetry makes should have been applied automatically for us.
 
 To test, we can ask where Poetry is installed:
@@ -198,12 +193,44 @@ The final step in distributing our code is to upload it to a package index.
 To help us test our packages, PyPI provides a test index at https://test.pypi.org/ that we can use.
 Packages uploaded to the test index aren't accessible to a normal `pip install`, so no one's going to accidentally install our software yet.
 
+Firstly, we need to create an account at https://test.pypi.org/.
+Click the register link to the top right, and fill in your account details.
+Once you've created your account, you may receive an email asking you to verify the account creation.
+
+Now, we need to tell Poetry about our account on the test PyPI server.
+When we enter the second of the following commands, Poetry will also ask us to enter our password:
+
+~~~
+poetry config repositories.testpypi https://test.pypi.org/legacy/
+poetry config http-basic.testpypi <your username>
+~~~
+{: .language-bash}
+
+Finally, we're ready to go.
+To publish the our software that we've been working so hard on, there's just one more command:
+
+~~~
+poetry publish -r testpypi
+~~~
+{: .language-bash}
+
+If we now go to https://test.pypi.org and search for our package name, we should find our newly published software!
+We can even install this package ourselves using `pip`.
+
+...
+
+> ## Adding A Bit Of Detail
+>
+> Using the [Poetry documentation](https://python-poetry.org/docs/), investigate how we might go about adding more detail to our page on the package index website.
+> We want people to be able to find our package and to be able to tell if it's going to be useful to them.
+> What extra information can we add to the `pyproject.toml` file to help with this?
+{: .challenge}
 
 ## What If We Need More Control?
 
-`setup.py`
+Sometimes we need more control over the process of building our installable package than Poetry allows.
+In these cases, we have to use the method that existed before Poetry - a `setup.py` file.
 
-- Useful if you need to control the build process - e.g. to compile some C / C++ components
-
+...
 
 {% include links.md %}
