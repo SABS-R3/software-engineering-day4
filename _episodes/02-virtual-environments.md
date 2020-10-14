@@ -1,7 +1,7 @@
 ---
 title: "Using Virtual Environments"
 teaching: 0
-exercises: 40
+exercises: 60
 questions:
 - "What is a virtual environment?"
 - "What are the benefits of using a virtual environment?"

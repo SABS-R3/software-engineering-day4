@@ -1,7 +1,7 @@
 ---
 title: "Packaging Code for Release"
 teaching: 0
-exercises: 80
+exercises: 90
 questions:
 - "How do we prepare our code for sharing?"
 - "How do we release our code?"
