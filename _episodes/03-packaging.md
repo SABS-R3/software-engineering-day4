@@ -35,6 +35,18 @@ If that fails:
 Poetry uses a **pyproject.toml** file to describe the build system and requirements of the package.
 This file was described in [PEP 518](https://www.python.org/dev/peps/pep-0518/) to solve problems with bootstrapping packages using the older convention **setup.py** files and to support a wider range of build tools.
 
+Because we're going to use Poetry to manage our dependencies for us, lets deactivate, remove and remake our virtual environment to make sure it's clean:
+
+~~~
+deactivate
+rm -r venv
+python3 -m venv venv
+source venv/bin/activate
+~~~
+{: .language-bash}
+
+Now we're ready to begin.
+
 To create a `pyproject.toml` file for our code, we can use `poetry init`.
 This will guide us through the most important settings - for each prompt, we either enter our data or accept the default.
 For the package name, make sure this has some unique identifier in it so it doesn't match the package name of anyone else - I've used my name here, you could use your name, or some random text.
@@ -96,8 +108,6 @@ Once we've created and activated our virtual environment, we can add the depende
 When we add a dependency this way, Poetry will add it to the list of dependencies in the `pyproject.toml` file, add a reference to it in a new `poetry.lock` file, and automatically install the package into our virtual environment.
 
 ~~~
-python3 -m venv venv
-source venv/bin/activate
 poetry add numpy
 poetry add --dev pylint
 ~~~
