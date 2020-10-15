@@ -289,7 +289,7 @@ Sometimes we need more control over the process of building our installable pack
 In these cases, we have to use the method that existed before Poetry - a `setup.py` file.
 Because this is a Python file, we can use the full power of Python to describe how to setup our project.
 
-One of the common cases where this is particularly useful is if our project has components in mutiple different languages.
+One of the common cases where this is particularly useful is if our project has components in different languages.
 For example, to speed up some of the core parts we might write some of our functions in C, then call these from our Python code.
 Using a `setup.py` gives us the flexibility to handle building these components in different ways and bring them together at the end.
 
