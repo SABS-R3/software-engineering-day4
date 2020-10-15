@@ -45,16 +45,32 @@ cd 2020-se-day3/code
 
 ## Why do we have Dependencies?
 
-- Don't need to write everything ourselves
-- If there's an established library / package that does what we need, consider using it
-- But adding a new dependency is adding risk
-  - A new dependency might conflict with our other dependencies
-  - It might have bugs that affect the correctness of our project
-  - It might not work under some conditions that we don't yet know - e.g. support for other Operating Systems
-  - It might have security vulnerabilities
-  - It might not be maintained and kept up to date
+When devloping our own software, we're not working in isolation.
+A huge amount of software has already been written by other people - some working as individuals, some by large groups or companies.
+This means that we don't have to do everything ourselves as often, someone else has already had to solve the problem we've encountered.
+For example, many people have needed to perform complex numerical calculations, so NumPy was developed to address this need.
+
+Using an established library or package that does what we need can save us considerable time.
+We don't need to take time to reimplement features that already exist - assuming the time taken to reimplement them is greater than the time taken to learn about and use the pre-existing software.
+
+But adding a new dependency is adding risk:
+
+- A new dependency might conflict with our other dependencies
+- It might have bugs that affect the correctness of our project
+- It might not work under some conditions that we don't yet know - e.g. support for other Operating Systems
+- It might have security vulnerabilities
+- It might not be maintained and kept up to date
 
 Any of these issues might exist now, or may occur in the future, so we need to make sure that we have confidence in anything we're adding as a new dependency.
+
+> ## Left-Pad
+>
+> In 2016 a package called `left-pad` was removed from the JavaScript package index used by the NPM package manager.
+> This package, although it only contained 11 lines of code, was a dependency of several core components of the JavaScript ecosystem, meaning it had had 2.5 million downloads in the month before the removal.
+> As a result, for a few hours until it was restored, JavaScript projects were broken for developers all round the world.
+>
+> For more information see [this article](https://www.theregister.com/2016/03/23/npm_left_pad_chaos/).
+{: .callout}
 
 ### Assessing Dependencies
 
@@ -85,9 +101,11 @@ See the pages on [choosing dependencies](https://software.ac.uk/choosing-right-o
 
 ### Semantic Versioning - SemVer
 
-See the [official documentation](https://semver.org/) for more detail.
+It's a good idea to add a version number to our software, so that other people can tell when we make changes, and make sure they're using the version they need.
+This helps to avoid the confusion when refering to the different capabilities and behaviours - we can just say "use version 3.8.5".
+One of the most common systems for numbering versions is **SemVer**.
 
-Version numbers have the form `MAJOR.MINOR.PATCH`.
+Using SemVer, version numbers have the form `MAJOR.MINOR.PATCH`.
 
 When a new version is released, we update the version number depending on the type of changes we made to the software.
 If all we've done is fix bugs, or make changes that don't affect the functionality, we increment the third part of the version number and call this a **patch release**.
@@ -99,8 +117,32 @@ We should take great care to minimise changes to our public API once we know oth
 To signify that we're still in the early stages of a project and we might have to make major changes, we can use a `0.x.y` version number.
 Releases with a major version of zero, are understood to be unstable - when we want to say we're ready with a stable release, we increment to version `1.0.0`.
 
+See the [official documentation](https://semver.org/) for more detail.
+
 For different types of software this can mean slightly different things.
 For a library, which other developers will integrate into their own software, it is the programmatic API, the set of classes, functions and data that the library exposes.
+For user-facing software, such as a desktop application or web app, this can include all the previous factors, but might also include factors such as changes to user workflow.
+
+> ## Alternatives To SemVer
+>
+> Ubuntu Linux uses version numbers like `19.10` and `20.04 LTS`.
+>
+> What do these version numbers mean?
+> Why might a numbering system like this be a useful alternative to SemVer for some projects?
+>
+> > ## Solution
+> >
+> > The components in the numbering system used by Ubuntu are the year and month.
+> > Version `19.10` was released around October 2019, while version `20.04 LTS` was released around April 2020.
+> > The `LTS` is short for **Long Term Support**, meaning that they commit to maintaining this version for longer than non-LTS versions.
+> > Using an LTS version is useful if you require stability, more than you require the new features of upgrading to a new version.
+> > It's common for LTS versions of software to be maintained for 3-5 years, or even longer.
+> >
+> > The purpose of a numbering system based on date, is that it creates a known **release cadence**.
+> > Users of the software know immediately if it's time for them to update, and how long ago the current version was released.
+> > It does however, mean that we don't know how major the changes in each version are, until we read the **release notes**.
+> {: .solution}
+{: .challenge}
 
 ### Virtual Environments
 
@@ -135,7 +177,7 @@ Pip has some more features which help us manage this.
 Firstly, to list the packages we have installed, we can use the list command:
 
 ~~~
-pip list
+pip3 list
 ~~~
 {: .language-bash}
 
@@ -146,7 +188,7 @@ Try activating one of our previous virtual environments, or creating a new one a
 List is useful if we want to check if we remembered to install a particular package, but we have another command that's more useful for sharing our package list:
 
 ~~~
-pip freeze
+pip3 freeze
 ~~~
 {: .language-bash}
 
@@ -154,16 +196,16 @@ The freeze command shows us all of our installed packages with the version numbe
 By saving this into a file, we can make sure that other people using our code have the same versions installed:
 
 ~~~
-pip freeze > requirements.txt
+pip3 freeze > requirements.txt
 ~~~
 {: .language-bash}
 
-If you open this `requirements.txt` file using VSCode, you should see that it contains the output of `pip freeze`.
+If you open this `requirements.txt` file using VSCode, you should see that it contains the output of `pip3 freeze`.
 
 When we need to install all our dependencies, we can get pip to use this file:
 
 ~~~
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ~~~
 {: .language-bash}
 
@@ -174,7 +216,8 @@ This is where pyenv comes in.
 Pyenv is a tool which allows us to have multiple versions of Python installed in parallel, and switch between them easily.
 For an explanation of how it works, and the differences between pyenv an a virtual environment tool, see [their documentation](https://github.com/pyenv/pyenv).
 
-Before we go any further, let's make sure we don't have any virtual environments currently activated:
+Before we go any further, let's make sure we don't have any virtual environments currently activated.
+If we don't currently have a virtual environment activated this will give us an error message - that's fine.
 
 ~~~
 deactivate
@@ -249,11 +292,55 @@ pyenv install 3.10-dev
 Now, in our code directory, we can tell pyenv which version we want to use:
 
 ~~~
+cd
+cd 2020-se-day4/code
 pyenv local 3.10-dev
 ~~~
 {: .language-bash}
 
 Now, whenever we use Python in this directory, it will be our new Python 3.10 installation.
 We can even use this Python to create a new virtual environment.
+
+We can test this by asking Python what its version number is:
+
+~~~
+python --version
+~~~
+{: .language-bash}
+
+~~~
+Python 3.10.0a1+
+~~~
+{: .output}
+
+> ## Python Version Numbers
+>
+> At the time these materials were prepared, installing `3.10-dev` got us a version of Python with a version number of `3.10.0a1+`.
+> What does this version number mean?
+> When we share our code, should we tell people to use this version?
+> Why, or why not?
+>
+> > ## Solution
+> >
+> > The version number `3.10.0a1+` has a few more components than we've seen previously:
+> >
+> > - The major version is `3`
+> > - The minor version is `10`
+> > - The patch version is `0` - this is part of the first proper release in the `3.10` series
+> > - `a1` means that this is the first **alpha release** in this series
+> > - `+` means that this is a development version and some changes have been made since the actual `3.10.0a1` release
+> >
+> > Before a stable release (one which is considered reliable), we often release alpha and beta versions.
+> > An alpha or beta version allows people to try out some of the new things we've added, but is a warning that it should not be relied on.
+> >
+> > Installing a development version is when we ignore the officially released versions and go directly to the latest changes in version control.
+> > These are very dangerous to rely on, as anything could potentially be broken at any time, though many larger project try to keep them as stable as possible.
+> > The advantage of a development version is it allows us to try out the very latest additions, and report any bugs that we find.
+> >
+> > Because this is an alpha release, but we're also using the very latest code, we should not say that this is a required version of Python.
+> > If we want to use some of the functionality in Python 3.10, we should wait for the full `3.10.0` release before sharing our instructions.
+> {: .solution}
+{: .challenge}
+
 
 {% include links.md %}
