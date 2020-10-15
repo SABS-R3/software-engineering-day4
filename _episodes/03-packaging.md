@@ -266,8 +266,6 @@ Though it's becoming increasingly common for academic software to be shared unde
 Remember that the easier we make it for people to use our code and get involved with the project, the easier it is for people to reproduce and build upon our work.
 Funders are also starting to put greater emphasis on sharing the outputs of our projects as this increases the impact of our work and the impact of their money.
 
-{: .language-bash}
-
 > ## Adding Some Detail
 >
 > Using the [Poetry documentation](https://python-poetry.org/docs/), investigate how we might go about adding more detail to our page on the package index website.
