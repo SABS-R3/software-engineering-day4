@@ -28,6 +28,14 @@ The second method, using **setup.py**, is the more traditional method and gives 
 
 ### Installing Poetry
 
+Before we start this section, let's make sure again that we don't have any virtual environments currently activated.
+If we don't currently have a virtual environment activated this will give us an error message - that's fine.
+
+~~~
+deactivate
+~~~
+{: .language-bash}
+
 The recommended install method for Poetry is similar to the method we used for pyenv.
 This time it's a Python script we need to download and run:
 
