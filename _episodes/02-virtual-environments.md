@@ -283,6 +283,9 @@ which pyenv
 
 Let's say we want to try out the latest development version of Python (3.10-dev at the time of writing), we can install this with pyenv.
 Be aware that this might take a couple of minutes to complete, as it's downloading and configuring a full installation of a new version of Python.
+We also might see a couple of warnings about missing libraries such as `bz2`, `readline`, or `sqlite`, but this is also fine for the time being.
+If you want to use pyenv as part of your development process in the future, it's probably a good idea to install these libraries later on.
+On Ubuntu, this can be done with `apt-get`, as we have with a few other things in the past.
 
 ~~~
 pyenv install 3.10-dev
