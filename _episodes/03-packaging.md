@@ -206,6 +206,17 @@ poetry config http-basic.testpypi <your username>
 ~~~
 {: .language-bash}
 
+> ## Security Alert!o
+>
+> Since we're publishing our code for other people to use, we need to take care to do this securely.
+> If someone gets access to our PyPI account, they could potentially upload a malicious version of one of our packages.
+> This has happened with several JavaScript packages in the past.
+>
+> To improve our security, we should use an **API key / token** rather than a username and password.
+>
+> For more information, see the [PyPI FAQs](https://test.pypi.org/help/#apitoken).
+{: .callout}
+
 Finally, we're ready to go.
 To publish the our software that we've been working so hard on, there's just one more command:
 
@@ -215,9 +226,12 @@ poetry publish -r testpypi
 {: .language-bash}
 
 If we now go to https://test.pypi.org and search for our package name, we should find our newly published software!
-We can even install this package ourselves using `pip`.
+We can even install this package ourselves using `pip`:
 
-...
+~~~
+pip3 install -i https://test.pypi.org/simple/ <your package name>
+~~~
+{: .language-bash}
 
 > ## Adding A Bit Of Detail
 >
@@ -232,5 +246,7 @@ Sometimes we need more control over the process of building our installable pack
 In these cases, we have to use the method that existed before Poetry - a `setup.py` file.
 
 ...
+
+https://packaging.python.org/
 
 {% include links.md %}
