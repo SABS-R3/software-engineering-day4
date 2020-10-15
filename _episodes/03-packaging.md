@@ -247,6 +247,7 @@ We can even install this package ourselves using `pip`:
 ~~~
 pip3 install -i https://test.pypi.org/simple/ <your package name>
 ~~~
+{: .language-bash}
 
 Note that there is a space between the URL and your package name in the line above.
 
