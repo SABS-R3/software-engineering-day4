@@ -217,7 +217,7 @@ Pyenv is a tool which allows us to have multiple versions of Python installed in
 For an explanation of how it works, and the differences between pyenv an a virtual environment tool, see [their documentation](https://github.com/pyenv/pyenv).
 
 Before we go any further, let's make sure we don't have any virtual environments currently activated.
-If we don't currently have a virtual environment activated this will give us an error message - that's fine.
+If we don't currently have a virtual environment activated this will give us an error message or tell us to use `source deactivate` - that's fine.
 
 ~~~
 deactivate

@@ -29,7 +29,7 @@ The second method, using **setup.py**, is the more traditional method and gives 
 ### Installing Poetry
 
 Before we start this section, let's make sure again that we don't have any virtual environments currently activated.
-If we don't currently have a virtual environment activated this will give us an error message - that's fine.
+If we don't currently have a virtual environment activated this will give us an error message or tell us to use `source deactivate` - that's fine.
 
 ~~~
 deactivate
@@ -79,6 +79,7 @@ Poetry uses a **pyproject.toml** file to describe the build system and requireme
 This file format was described in [PEP 518](https://www.python.org/dev/peps/pep-0518/) to solve problems with bootstrapping (the processing we do to prepare to process something) packages using the older convention **setup.py** files and to support a wider range of build tools.
 
 Because we're going to use Poetry to manage our dependencies for us, lets deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the risky Python 3.10 development version.
+Remember that when we do `deactivate` we might get an error or warning if we weren't already in a virtual environment - this is fine.
 First make sure we're in today's `code` directory, then use the following commands:
 
 ~~~
