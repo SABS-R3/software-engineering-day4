@@ -250,6 +250,16 @@ pip3 install -i https://test.pypi.org/simple/ <your package name>
 
 Note that there is a space between the URL and your package name in the line above.
 
+After we've been working on our code for a while and want to publish an update, we just need to update the version number in the `pyproject.toml` file (using SemVer perhaps), then use Poetry to build and publish the new version.
+If we don't increment the version number, people might end up using this version, even though they thought they were using the previous one.
+Any re-publishing of the package, no matter how small the changes, needs to come with a new version number.
+
+~~~
+poetry build
+poetry publish -r testpypi
+~~~
+{: .language-bash}
+
 If you've made it this far, congratulations, you've successfully published and installed a Python package!
 Though it's becoming increasingly common for academic software to be shared under an open source license, not many people go this extra step and make their code installable so easily.
 Remember that the easier we make it for people to use our code and get involved with the project, the easier it is for people to reproduce and build upon our work.
