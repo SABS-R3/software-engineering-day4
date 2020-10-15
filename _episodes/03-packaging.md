@@ -240,12 +240,20 @@ poetry publish -r testpypi
 ~~~
 {: .language-bash}
 
-If we now go to https://test.pypi.org and search for our package name, we should find our newly published software!
+If we now go to https://test.pypi.org and search for our package name, we should find our newly published software.
 We can even install this package ourselves using `pip`:
 
 ~~~
 pip3 install -i https://test.pypi.org/simple/ <your package name>
 ~~~
+
+Note that there is a space between the URL and your package name in the line above.
+
+If you've made it this far, congratulations, you've successfully published and installed a Python package!
+Though it's becoming increasingly common for academic software to be shared under an open source license, not many people go this extra step and make their code installable so easily.
+Remember that the easier we make it for people to use our code and get involved with the project, the easier it is for people to reproduce and build upon our work.
+Funders are also starting to put greater emphasis on sharing the outputs of our projects as this increases the impact of our work and the impact of their money.
+
 {: .language-bash}
 
 > ## Adding Some Detail
