@@ -78,12 +78,12 @@ which poetry
 Poetry uses a **pyproject.toml** file to describe the build system and requirements of the package.
 This file format was described in [PEP 518](https://www.python.org/dev/peps/pep-0518/) to solve problems with bootstrapping (the processing we do to prepare to process something) packages using the older convention **setup.py** files and to support a wider range of build tools.
 
-Because we're going to use Poetry to manage our dependencies for us, lets deactivate, remove and remake our virtual environment to make sure it's clean.
+Because we're going to use Poetry to manage our dependencies for us, lets deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the risky Python 3.10 development version.
 First make sure we're in today's `code` directory, then use the following commands:
 
 ~~~
 deactivate
-rm -r venv
+rm -r venv .python-version
 python3 -m venv venv
 source venv/bin/activate
 ~~~
