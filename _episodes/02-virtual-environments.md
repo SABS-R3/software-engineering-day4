@@ -39,7 +39,7 @@ mv 2020-software-engineering-day4-gh-pages 2020-se-day4
 Change to the `code` directory within that new directory:
 
 ~~~
-cd 2020-se-day3/code
+cd 2020-se-day4/code
 ~~~
 {: .language-bash}
 

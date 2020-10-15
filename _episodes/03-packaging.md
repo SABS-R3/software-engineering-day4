@@ -206,7 +206,7 @@ poetry config http-basic.testpypi <your username>
 ~~~
 {: .language-bash}
 
-> ## Security Alert!o
+> ## Security Alert!
 >
 > Since we're publishing our code for other people to use, we need to take care to do this securely.
 > If someone gets access to our PyPI account, they could potentially upload a malicious version of one of our packages.
@@ -233,7 +233,7 @@ pip3 install -i https://test.pypi.org/simple/ <your package name>
 ~~~
 {: .language-bash}
 
-> ## Adding A Bit Of Detail
+> ## Adding Some Detail
 >
 > Using the [Poetry documentation](https://python-poetry.org/docs/), investigate how we might go about adding more detail to our page on the package index website.
 > We want people to be able to find our package and to be able to tell if it's going to be useful to them.
