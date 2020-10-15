@@ -78,13 +78,20 @@ which poetry
 Poetry uses a **pyproject.toml** file to describe the build system and requirements of the package.
 This file format was described in [PEP 518](https://www.python.org/dev/peps/pep-0518/) to solve problems with bootstrapping (the processing we do to prepare to process something) packages using the older convention **setup.py** files and to support a wider range of build tools.
 
-Because we're going to use Poetry to manage our dependencies for us, lets deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the risky Python 3.10 development version.
+First let's make sure we're in the right place:
+
+~~~
+cd
+cd 2020-se-day4/code
+~~~
+{: .language-bash}
+
+Because we're going to use Poetry to manage our dependencies for us, we should deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the risky Python 3.10 development version from last session.
 Remember that when we do `deactivate` we might get an error or warning if we weren't already in a virtual environment - this is fine.
-First make sure we're in today's `code` directory, then use the following commands:
 
 ~~~
 deactivate
-rm -r venv .python-version
+rm -rf venv .python-version
 python3 -m venv venv
 source venv/bin/activate
 ~~~
@@ -206,10 +213,10 @@ We could also rely on Bash's autocomplete functionality and type `dist/poetry_pr
 ### Sharing Our Package With The World
 
 The final step in distributing our code is to upload it to a package index.
-To help us test our packages, PyPI provides a test index at https://test.pypi.org/ that we can use.
+To help us test our packages, PyPI provides a test index at [https://test.pypi.org/](https://test.pypi.org/) that we can use.
 Packages uploaded to the test index aren't accessible to a normal `pip install`, so no one's going to accidentally install our software yet.
 
-Firstly, we need to create an account at https://test.pypi.org/.
+Firstly, we need to create an account at [https://test.pypi.org/](https://test.pypi.org/).
 Click the register link to the top right, and fill in your account details.
 Once you've created your account, you may receive an email asking you to verify the account creation.
 
@@ -241,7 +248,7 @@ poetry publish -r testpypi
 ~~~
 {: .language-bash}
 
-If we now go to https://test.pypi.org and search for our package name, we should find our newly published software.
+If we now go to [https://test.pypi.org](https://test.pypi.org/) and search for our package name, we should find our newly published software.
 We can even install this package ourselves using `pip`:
 
 ~~~
