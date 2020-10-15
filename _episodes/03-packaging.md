@@ -127,7 +127,7 @@ authors = ["James Graham <J.Graham@software.ac.uk>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 
