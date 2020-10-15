@@ -152,6 +152,13 @@ poetry add --dev pylint
 ~~~
 {: .language-bash}
 
+These two sets of dependencies will be used in different circumstances.
+When we build our installable package and upload it to a package index, Poetry will only include references to our runtime dependencies.
+This is because someone installing our software through a tool like `pip` is using it, but probably not developing it.
+
+In contrast, if someone downloads our code from GitHub, with our `pyproject.toml` and installs our project using that, they will get both our runtime and our development dependencies.
+If someone is downloading our source code, that suggests that the intend to contribute to the development of it, so they'll need all of our development tools.
+
 ### Packaging Our Code
 
 Next, we need to make sure that our code is organised in the recommended Python code package structure.
@@ -240,13 +247,33 @@ pip3 install -i https://test.pypi.org/simple/ <your package name>
 > What extra information can we add to the `pyproject.toml` file to help with this?
 {: .challenge}
 
+In addition to the commands we've already seen, Poetry contains a few more that can be useful for our development process.
+For the full list see the Poetry [CLI documentation](https://python-poetry.org/docs/cli/).
+
 ## What If We Need More Control?
 
 Sometimes we need more control over the process of building our installable package than Poetry allows.
 In these cases, we have to use the method that existed before Poetry - a `setup.py` file.
+Because this is a Python file, we can use the full power of Python to describe how to setup our project.
 
-...
+One of the common cases where this is particularly useful is if our project has components in mutiple different languages.
+For example, to speed up some of the core parts we might write some of our functions in C, then call these from our Python code.
+Using a `setup.py` gives us the flexibility to handle building these components in different ways and bring them together at the end.
 
-https://packaging.python.org/
+In the template repository for the mini-projects, we have an example of a basic, general purpose `setup.py` file.
+You can find this file [https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py](https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py).
+
+> ## Our Own Setup.py
+>
+> Compare this example `setup.py` file to the Poetry `pyproject.toml` file we created previously.
+> At the bottom, in the arguments to the `setup` function, we have many of the same pieces of metadata.
+>
+> The [Python Packaging User Guide](https://packaging.python.org/) provides documentation on the details of packaging a project using `setup.py`.
+> In this guide, they use Twine to upload the package to PyPI, instead of Poetry as we did previously.
+>
+> Using the example `setup.py` file and this documentation, can you produce a `setup.py` file for our Poetry project?o
+>
+> Which configuration style do you prefer for projects like this one?
+{: .challenge}
 
 {% include links.md %}
