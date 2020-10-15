@@ -261,6 +261,9 @@ poetry publish -r testpypi
 ~~~
 {: .language-bash}
 
+In addition to the commands we've already seen, Poetry contains a few more that can be useful for our development process.
+For the full list see the Poetry [CLI documentation](https://python-poetry.org/docs/cli/).
+
 If you've made it this far, congratulations, you've successfully published and installed a Python package!
 Though it's becoming increasingly common for academic software to be shared under an open source license, not many people go this extra step and make their code installable so easily.
 Remember that the easier we make it for people to use our code and get involved with the project, the easier it is for people to reproduce and build upon our work.
@@ -272,9 +275,6 @@ Funders are also starting to put greater emphasis on sharing the outputs of our 
 > We want people to be able to find our package and to be able to tell if it's going to be useful to them.
 > What extra information can we add to the `pyproject.toml` file to help with this?
 {: .challenge}
-
-In addition to the commands we've already seen, Poetry contains a few more that can be useful for our development process.
-For the full list see the Poetry [CLI documentation](https://python-poetry.org/docs/cli/).
 
 ## What If We Need More Control?
 
