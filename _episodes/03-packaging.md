@@ -154,7 +154,7 @@ Do you confirm generation? (yes/no) [yes] yes
 Previously, we looked at using a `requirements.txt` file to define the dependencies of our software.
 Here, Poetry takes inspiration from package managers in other languages, particularly NPM (Node Package Manager), often used in JavaScript.
 
-Tools like Poetry and NPM understand that there's two different types of dependency: runtime dependencies and development dependencies.
+Tools like Poetry and NPM understand that there are two different types of dependency: runtime dependencies and development dependencies.
 Runtime dependencies are those dependencies that need to be installed for our code to run, like NumPy.
 Development dependencies are dependencies which are an essential part of your development process for a project, but are not required to run it.
 Common examples of developments dependencies are linters and test frameworks, like Pylint or Pytest.

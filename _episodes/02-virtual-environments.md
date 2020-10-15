@@ -45,7 +45,7 @@ cd 2020-se-day4/code
 
 ## Why do we have Dependencies?
 
-When devloping our own software, we're not working in isolation.
+When developing our own software, we're not working in isolation.
 A huge amount of software has already been written by other people - some working as individuals, some by large groups or companies.
 This means that we don't have to do everything ourselves as often, someone else has already had to solve the problem we've encountered.
 For example, many people have needed to perform complex numerical calculations, so NumPy was developed to address this need.
