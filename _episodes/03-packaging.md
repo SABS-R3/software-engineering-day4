@@ -304,7 +304,7 @@ You can find this file [https://github.com/SABS-R3/2020-software-engineering-pro
 > The [Python Packaging User Guide](https://packaging.python.org/) provides documentation on the details of packaging a project using `setup.py`.
 > In this guide, they use Twine to upload the package to PyPI, instead of Poetry as we did previously.
 >
-> Using the example `setup.py` file and this documentation, can you produce a `setup.py` file for our Poetry project?o
+> Using the example `setup.py` file and this documentation, can you produce a `setup.py` file for our Poetry project?
 >
 > Which configuration style do you prefer for projects like this one?
 {: .challenge}
