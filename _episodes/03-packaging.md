@@ -116,7 +116,7 @@ poetry init
 
 This command will guide you through creating your pyproject.toml config.
 
-Package name [example]:  poetry-project-jgraham
+Package name [example]:  inflammation-jgraham
 Version [0.1.0]: 0.1.0
 Description []:  Example project for using Poetry to build packages
 Author [None, n to skip]: James Graham <J.Graham@software.ac.uk>
@@ -128,9 +128,9 @@ Would you like to define your development dependencies interactively? (yes/no) [
 Generated file
 
 [tool.poetry]
-name = "poetry-project-jgraham"
+name = "inflammation-jgraham"
 version = "0.1.0"
-description = "Example project for using Poetry to build packages"
+description = "Analyse patient inflammation data"
 authors = ["James Graham <J.Graham@software.ac.uk>"]
 license = "MIT"
 
