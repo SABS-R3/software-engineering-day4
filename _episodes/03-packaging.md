@@ -20,9 +20,9 @@ keypoints:
 
 All the dependencies we've installed previously with `pip` were written by someone else and uploaded to a **Package Index / Repository**.
 
-In this session we'll be looking at two different methods for building an installable package from our code.
+In this session we'll introduce two different methods for building an installable package from our code.
 The first, using a tool called **Poetry**, is the simpler of the two methods, so we'll walk through the complete packaging process and end up with a package uploaded to the PyPI test site.
-The second method, using **setup.py**, is the more traditional method and gives us full control, but is more complicated.
+The second method, using **setup.py**, is the more traditional method and gives us full control, but is more complicated - we won't cover this fully, but it might be something you want to invesigate further in future.
 
 ## Packaging our Code with Poetry
 
@@ -31,7 +31,7 @@ The second method, using **setup.py**, is the more traditional method and gives 
 Before we start this section, let's make sure again that we don't have any virtual environments currently activated.
 If we don't currently have a virtual environment activated this will give us an error message or tell us to use `source deactivate` - that's fine.
 
-~~~
+~~~ bash
 deactivate
 ~~~
 {: .language-bash}
@@ -39,7 +39,7 @@ deactivate
 The recommended install method for Poetry is similar to the method we used for pyenv.
 This time it's a Python script we need to download and run:
 
-~~~
+~~~ bash
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
 ~~~
 {: .language-bash}
@@ -50,7 +50,7 @@ Then the changes that Poetry makes should have been applied automatically for us
 
 To test, we can ask where Poetry is installed:
 
-~~~
+~~~ bash
 which poetry
 ~~~
 {: .language-bash}
@@ -62,7 +62,7 @@ which poetry
 
 If you don't get this output, then we should try activating it manually and checking again:
 
-~~~
+~~~ bash
 source $HOME/.poetry/env
 which poetry
 ~~~
@@ -80,16 +80,16 @@ This file format was described in [PEP 518](https://www.python.org/dev/peps/pep-
 
 First let's make sure we're in the right place:
 
-~~~
+~~~ bash
 cd
 cd 2020-se-day4/code
 ~~~
 {: .language-bash}
 
-Because we're going to use Poetry to manage our dependencies for us, we should deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the risky Python 3.10 development version from last session.
+Because we're going to use Poetry to manage our dependencies for us, we should deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the Python 3.10 version we looked at last session.
 Remember that when we do `deactivate` we might get an error or warning if we weren't already in a virtual environment - this is fine.
 
-~~~
+~~~ bash
 deactivate
 rm -rf venv .python-version
 python3 -m venv venv
@@ -107,7 +107,7 @@ Note that, usually when we're naming a Python installable package, we use hyphen
 
 When we get to the questions about defining our dependencies, we'll answer no, so we can do this separately later.
 
-~~~
+~~~ bash
 poetry init
 ~~~
 {: .language-bash}
@@ -148,7 +148,6 @@ Do you confirm generation? (yes/no) [yes] yes
 ~~~
 {: .output}
 
-
 ### Project Dependencies
 
 Previously, we looked at using a `requirements.txt` file to define the dependencies of our software.
@@ -162,7 +161,7 @@ Common examples of developments dependencies are linters and test frameworks, li
 When we add a dependency using Poetry, Poetry will add it to the list of dependencies in the `pyproject.toml` file, add a reference to it in a new `poetry.lock` file, and automatically install the package into our virtual environment.
 The `pyproject.toml` file has two separate lists, allowing us to distinguish between runtime and development dependencies.
 
-~~~
+~~~ bash
 poetry add numpy
 poetry add --dev pylint
 ~~~
@@ -170,28 +169,29 @@ poetry add --dev pylint
 
 These two sets of dependencies will be used in different circumstances.
 When we build our installable package and upload it to a package index, Poetry will only include references to our runtime dependencies.
-This is because someone installing our software through a tool like `pip` is using it, but probably not developing it.
+This is because someone installing our software through a tool like `pip` is using it, but probably doesn't intend to contribute to the development of our software.
 
-In contrast, if someone downloads our code from GitHub, with our `pyproject.toml` and installs our project using that, they will get both our runtime and our development dependencies.
-If someone is downloading our source code, that suggests that the intend to contribute to the development of it, so they'll need all of our development tools.
+In contrast, if someone downloads our code from GitHub, with our `pyproject.toml` and installs the project using that, they will get both our runtime and our development dependencies.
+If someone is downloading our source code, that suggests that they intend to contribute to the development of it, so they'll need all of our development tools.
 
 ### Packaging Our Code
 
 Next, we need to make sure that our code is organised in the recommended Python code package structure.
 This is the package (yes, we use the same word to mean two different things...) structure that we encountered in the refactoring section - a directory containing an `__init__.py` and our Python source code files.
 
-We've provided an example using the academic model in the code directory for today, but you'll have to rename this package so that it matches the name you told Poetry about, but with underscores instead of hyphens.
+We've provided an example of a semi-realistic Python application in the code directory for today.
+You'll have to rename this package so that it matches the name you told Poetry about, but with underscores instead of hyphens.
 By convention installable package (the type we install with `pip`) names use hyphens, whereas code package (a directory of Python files) names use underscores.
-While we could choose to use underscores in an installable package name, we cannot use hyphens in a code package name, as Python will interpret them as a minus sign.
+While we could choose to use underscores in an installable package name, we cannot use hyphens in a code package name, as Python will interpret them as a minus sign when we try to import them.
 
-~~~
+~~~ bash
 mv poetry_project poetry_project_jgraham
 ~~~
 {: .language-bash}
 
 Once we've got out `pyproject.toml` configuration done and our code in the right structure, we can go ahead and build a distributable version of our software:
 
-~~~
+~~~ bash
 poetry build
 ~~~
 {: .language-bash}
@@ -202,7 +202,7 @@ This is the file that `pip` uses to distribute and install Python packages, so t
 
 To install this wheel file, we can give it to `pip`:
 
-~~~
+~~~ bash
 pip3 install dist/poetry_project*.whl
 ~~~
 {: .language-bash}
@@ -223,7 +223,7 @@ Once you've created your account, you may receive an email asking you to verify 
 Now, we need to tell Poetry about our account on the test PyPI server.
 When we enter the second of the following commands, Poetry will also ask us to enter our password:
 
-~~~
+~~~ bash
 poetry config repositories.testpypi https://test.pypi.org/legacy/
 poetry config http-basic.testpypi <your username>
 ~~~
@@ -243,15 +243,15 @@ poetry config http-basic.testpypi <your username>
 Finally, we're ready to go.
 To publish the our software that we've been working so hard on, there's just one more command:
 
-~~~
+~~~ bash
 poetry publish -r testpypi
 ~~~
 {: .language-bash}
 
 If we now go to [https://test.pypi.org](https://test.pypi.org/) and search for our package name, we should find our newly published software.
-We can even install this package ourselves using `pip`:
+We can even install this package ourselves using `pip`, but we need to tell `pip` to use the testing version of PyPI:
 
-~~~
+~~~ bash
 pip3 install -i https://test.pypi.org/simple/ <your package name>
 ~~~
 {: .language-bash}
@@ -262,7 +262,7 @@ After we've been working on our code for a while and want to publish an update, 
 If we don't increment the version number, people might end up using this version, even though they thought they were using the previous one.
 Any re-publishing of the package, no matter how small the changes, needs to come with a new version number.
 
-~~~
+~~~ bash
 poetry build
 poetry publish -r testpypi
 ~~~
@@ -293,7 +293,7 @@ One of the common cases where this is particularly useful is if our project has 
 For example, to speed up some of the core parts we might write some of our functions in C, then call these from our Python code.
 Using a `setup.py` gives us the flexibility to handle building these components in different ways and bring them together at the end.
 
-In the template repository for the mini-projects, we have an example of a basic, general purpose `setup.py` file.
+In the template repository for one of the SABS mini-projects, we have an example of a basic, general purpose `setup.py` file.
 You can find this file [https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py](https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py).
 
 > ## Our Own Setup.py

@@ -19,26 +19,26 @@ See topic [video lecture](https://www.youtube.com/watch?v=hDSKafGlgWI), and [Pow
 
 ## Set up training materials
 
-So let's download the training materials for this material from the GitHub code repository online. Go to [https://github.com/SABS-R3/2020-software-engineering-day4/tree/gh-pages](https://github.com/SABS-R3/2020-software-engineering-day4/tree/gh-pages) in a browser (any will do, although Firefox is already installed on the provided laptops). Select the green `Code` button, and then select `Download ZIP`, and then in Firefox selecting `Save File` at the dialogue prompt. This will download all the files within a single archive file. After it's finished downloading, we need to extract all files from the archive. Find where the file has been downloaded to (on the provided laptops this is `/home/sabsr3/Downloads`, then start a terminal. You can start a terminal by right-clicking on the desktop and selecting `Open in Terminal`. Assuming the file has downloaded to e.g. `/home/sabsr3/Downloads`, type the following within the Terminal shell:
+So let's download the training materials for this material from the GitHub code repository online. Go to [https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages](https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages) in a browser (any will do, although Firefox is already installed on the provided laptops). Select the green `Code` button, and then select `Download ZIP`, and then in Firefox selecting `Save File` at the dialogue prompt. This will download all the files within a single archive file. After it's finished downloading, we need to extract all files from the archive. Find where the file has been downloaded to (on the provided laptops this is `/home/sabsr3/Downloads`, then start a terminal. You can start a terminal by right-clicking on the desktop and selecting `Open in Terminal`. Assuming the file has downloaded to e.g. `/home/sabsr3/Downloads`, type the following within the Terminal shell:
 
-~~~
+~~~ bash
 cd ~
-unzip /home/sabsr3/Downloads/2020-software-engineering-day4-gh-pages.zip
+unzip /home/sabsr3/Downloads/software-engineering-day4-gh-pages.zip
 ~~~
 {: .language-bash}
 
 The first `cd ~` command *changes our working directory* to our home directory (on the provisioned laptops, this is `/home/sabsr3`).
 
-The second command uses the unzip program to unpack the archive in your home directory, within a subdirectory called `2020-software-engineering-day4-gh-pages`. This subdirectory name is a little long to easily work with, so we'll rename it to something shorter:
+The second command uses the unzip program to unpack the archive in your home directory, within a subdirectory called `software-engineering-day4-gh-pages`. This subdirectory name is a little long to easily work with, so we'll rename it to something shorter:
 
-~~~
-mv 2020-software-engineering-day4-gh-pages 2020-se-day4
+~~~ bash
+mv software-engineering-day4-gh-pages se-day4
 ~~~
 {: .language-bash}
 
 Change to the `code` directory within that new directory:
 
-~~~
+~~~ bash
 cd 2020-se-day4/code
 ~~~
 {: .language-bash}
@@ -47,7 +47,7 @@ cd 2020-se-day4/code
 
 When developing our own software, we're not working in isolation.
 A huge amount of software has already been written by other people - some working as individuals, some by large groups or companies.
-This means that we don't have to do everything ourselves as often, someone else has already had to solve the problem we've encountered.
+This means that we don't have to do everything ourselves as often someone else has already solved the problem we've encountered.
 For example, many people have needed to perform complex numerical calculations, so NumPy was developed to address this need.
 
 Using an established library or package that does what we need can save us considerable time.
@@ -103,12 +103,12 @@ See the pages on [choosing dependencies](https://software.ac.uk/choosing-right-o
 
 It's a good idea to add a version number to our software, so that other people can tell when we make changes, and make sure they're using the version they need.
 This helps to avoid the confusion when refering to the different capabilities and behaviours - we can just say "use version 3.8.5".
-One of the most common systems for numbering versions is **SemVer**.
+One of the most common systems for numbering versions is **Semantic Versioning** or **SemVer**.
 
 Using SemVer, version numbers have the form `MAJOR.MINOR.PATCH`.
 
 When a new version is released, we update the version number depending on the type of changes we made to the software.
-If all we've done is fix bugs, or make changes that don't affect the functionality, we increment the third part of the version number and call this a **patch release**.
+If all we've done is fix bugs, or make minor changes that don't affect the functionality, we increment the third part of the version number and call this a **patch release**.
 If we've added new features, but we've not broken any behaviour that people might be relying on, we increment the second number, set the third number to zero and call this a **minor release**.
 If we have broken some behaviour that people might rely on, we increment the first number, set the other two to zero and call it a **major release**.
 
@@ -117,10 +117,10 @@ We should take great care to minimise changes to our public API once we know oth
 To signify that we're still in the early stages of a project and we might have to make major changes, we can use a `0.x.y` version number.
 Releases with a major version of zero, are understood to be unstable - when we want to say we're ready with a stable release, we increment to version `1.0.0`.
 
-See the [official documentation](https://semver.org/) for more detail.
+See the [official SemVer documentation](https://semver.org/) for more detail.
 
 For different types of software this can mean slightly different things.
-For a library, which other developers will integrate into their own software, it is the programmatic API, the set of classes, functions and data that the library exposes.
+For a library, which other developers will integrate into their own software, it is the programmatic API: the set of classes, functions and data that the library exposes.
 For user-facing software, such as a desktop application or web app, this can include all the previous factors, but might also include factors such as changes to user workflow.
 
 > ## Alternatives To SemVer
@@ -176,7 +176,7 @@ Pip has some more features which help us manage this.
 
 Firstly, to list the packages we have installed, we can use the list command:
 
-~~~
+~~~ bash
 pip3 list
 ~~~
 {: .language-bash}
@@ -187,7 +187,7 @@ Try activating one of our previous virtual environments, or creating a new one a
 
 List is useful if we want to check if we remembered to install a particular package, but we have another command that's more useful for sharing our package list:
 
-~~~
+~~~ bash
 pip3 freeze
 ~~~
 {: .language-bash}
@@ -195,7 +195,7 @@ pip3 freeze
 The freeze command shows us all of our installed packages with the version numbers.
 By saving this into a file, we can make sure that other people using our code have the same versions installed:
 
-~~~
+~~~ bash
 pip3 freeze > requirements.txt
 ~~~
 {: .language-bash}
@@ -204,7 +204,7 @@ If you open this `requirements.txt` file using VSCode, you should see that it co
 
 When we need to install all our dependencies, we can get pip to use this file:
 
-~~~
+~~~ bash
 pip3 install -r requirements.txt
 ~~~
 {: .language-bash}
@@ -219,7 +219,7 @@ For an explanation of how it works, and the differences between pyenv an a virtu
 Before we go any further, let's make sure we don't have any virtual environments currently activated.
 If we don't currently have a virtual environment activated this will give us an error message or tell us to use `source deactivate` - that's fine.
 
-~~~
+~~~ bash
 deactivate
 ~~~
 {: .language-bash}
@@ -231,7 +231,7 @@ We'll also need an SSL library (helps us manage securely connecting to the inter
 When we do `sudo apt-get`, we need to enter our password, so the computer can check that we do actually have permission to install software.
 Once we've installed `curl`, then we can install pyenv:
 
-~~~
+~~~ bash
 sudo apt-get update
 sudo apt-get install curl libssl-dev
 curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
@@ -252,7 +252,7 @@ Since pyenv installs into a new directory that it created itself, we need to add
 To do this, we need to add a couple of lines to the bottom of our `.bashrc` file.
 The easiest way to find this file is to open it in VSCode from the terminal:
 
-~~~
+~~~ bash
 cd
 code .bashrc
 ~~~
@@ -260,35 +260,35 @@ code .bashrc
 
 The lines we need to add to the bottom are:
 
-~~~
+~~~ bash
 export PATH="/home/sabsr3/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ~~~
 {: .source}
 
-Take care that these lines are correct before saving the file.
+Take care that these lines are correct before saving the file - if your username isn't `sabsr3`, replace that bit with your actual username.
 Now close and reopen your terminal, so that it can get the new configuration.
 With the installation process completed, we should now be able to find pyenv:
 
-~~~
+~~~ bash
 which pyenv
 ~~~
 {: .language-bash}
 
-~~~
+~~~ bash
 /home/sabsr3/.pyenv/bin/pyenv
 ~~~
 {: .output}
 
-Let's say we want to try out the latest development version of Python (3.10-dev at the time of writing), we can install this with pyenv.
+Let's say we want to try out the latest version of Python (3.10 at the time of writing), we can install this with pyenv.
 Be aware that this might take a couple of minutes to complete, as it's downloading and configuring a full installation of a new version of Python.
 We also might see a couple of warnings about missing libraries such as `bz2`, `readline`, or `sqlite`, but this is also fine for the time being.
 If you want to use pyenv as part of your development process in the future, it's probably a good idea to install these libraries later on.
 On Ubuntu, this can be done with `apt-get`, as we have with a few other things in the past.
 
-~~~
-pyenv install 3.10-dev
+~~~ python
+pyenv install 3.10
 ~~~
 {: .language-bash}
 
@@ -296,8 +296,8 @@ Now, in our code directory, we can tell pyenv which version we want to use:
 
 ~~~
 cd
-cd 2020-se-day4/code
-pyenv local 3.10-dev
+cd se-day4/code
+pyenv local 3.10
 ~~~
 {: .language-bash}
 
@@ -312,13 +312,13 @@ python --version
 {: .language-bash}
 
 ~~~
-Python 3.10.0a1+
+Python 3.10.0
 ~~~
 {: .output}
 
 > ## Python Version Numbers
 >
-> At the time these materials were prepared, installing `3.10-dev` got us a version of Python with a version number of `3.10.0a1+`.
+> At the time these materials were first written, installing `3.10-dev` got us a version of Python with a version number of `3.10.0a1+`.
 > What does this version number mean?
 > When we share our code, should we tell people to use this version?
 > Why, or why not?
@@ -344,6 +344,5 @@ Python 3.10.0a1+
 > > If we want to use some of the functionality in Python 3.10, we should wait for the full `3.10.0` release before sharing our instructions.
 > {: .solution}
 {: .challenge}
-
 
 {% include links.md %}
