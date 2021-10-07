@@ -162,7 +162,7 @@ When we add a dependency using Poetry, Poetry will add it to the list of depende
 The `pyproject.toml` file has two separate lists, allowing us to distinguish between runtime and development dependencies.
 
 ~~~ bash
-poetry add numpy
+poetry add numpy matplotlib
 poetry add --dev pylint
 ~~~
 {: .language-bash}
