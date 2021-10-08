@@ -40,7 +40,7 @@ The recommended install method for Poetry is similar to the method we used for p
 This time it's a Python script we need to download and run:
 
 ~~~ bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
 ~~~
 {: .language-bash}
 
@@ -60,7 +60,8 @@ which poetry
 ~~~
 {: .output}
 
-If you don't get this output, then we should try activating it manually and checking again:
+If you don't get this output, then we should try activating it manually and checking again.
+This would need to be done each time we open a new terminal and want to use Poetry.
 
 ~~~ bash
 source $HOME/.poetry/env
@@ -73,27 +74,41 @@ which poetry
 ~~~
 {: .output}
 
+Poetry can also handle virtual environments for us, so in order to behave similarly to how we used them previously, let's change the Poetry config to put them in the same directory as our project:
+
+~~~ bash
+poetry config virtualenvs.in-project true
+~~~
+{: .language-bash}
+
 ### Setting up our Poetry Config
 
 Poetry uses a **pyproject.toml** file to describe the build system and requirements of the package.
 This file format was described in [PEP 518](https://www.python.org/dev/peps/pep-0518/) to solve problems with bootstrapping (the processing we do to prepare to process something) packages using the older convention **setup.py** files and to support a wider range of build tools.
 
+> ## Python Enhancement Proposals
+>
+> PEP here stands for Python Enhancement Proposals.
+> PEPs are design documents for the Python community, typically specifications or conventions for how to do something in Python, a description of a new feature in Python, etc.
+>
+> One of the most frequently refered to PEPs is [PEP8](https://www.python.org/dev/peps/pep-0008/) which acts as the Python community style guide.
+> This document gives suggestions for how to format our Python code to ensure that it's easily readable by other developers.
+{: .callout}
+
 First let's make sure we're in the right place:
 
 ~~~ bash
 cd
-cd 2020-se-day4/code
+cd se-day4/code/poetry_project
 ~~~
 {: .language-bash}
 
-Because we're going to use Poetry to manage our dependencies for us, we should deactivate, remove and remake our virtual environment to make sure it's clean and also make sure we're not using the Python 3.10 version we looked at last session.
+Because we're going to use Poetry to manage our dependencies and virtual environment for us, we should deactivate and remove our previous virtual environment to make sure it's clean and also make sure we're not using the Python 3.11 version we looked at last session.
 Remember that when we do `deactivate` we might get an error or warning if we weren't already in a virtual environment - this is fine.
 
 ~~~ bash
 deactivate
 rm -rf venv .python-version
-python3 -m venv venv
-source venv/bin/activate
 ~~~
 {: .language-bash}
 
@@ -113,7 +128,6 @@ poetry init
 {: .language-bash}
 
 ~~~
-
 This command will guide you through creating your pyproject.toml config.
 
 Package name [example]:  inflammation-jgraham
@@ -140,7 +154,7 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry>=1.0.0"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
@@ -159,11 +173,13 @@ Development dependencies are dependencies which are an essential part of your de
 Common examples of developments dependencies are linters and test frameworks, like Pylint or Pytest.
 
 When we add a dependency using Poetry, Poetry will add it to the list of dependencies in the `pyproject.toml` file, add a reference to it in a new `poetry.lock` file, and automatically install the package into our virtual environment.
+If we don't yet have a virtual environment, Poetry will create it for us - using the name `.venv`, so it appears hidden unless we do `ls -a`.
 The `pyproject.toml` file has two separate lists, allowing us to distinguish between runtime and development dependencies.
 
 ~~~ bash
-poetry add numpy matplotlib
+poetry add matplotlib numpy~=1.20.0
 poetry add --dev pylint
+poetry install
 ~~~
 {: .language-bash}
 
@@ -173,6 +189,8 @@ This is because someone installing our software through a tool like `pip` is usi
 
 In contrast, if someone downloads our code from GitHub, with our `pyproject.toml` and installs the project using that, they will get both our runtime and our development dependencies.
 If someone is downloading our source code, that suggests that they intend to contribute to the development of it, so they'll need all of our development tools.
+
+Have a look at the `pyproject.toml` file again to see what's changed.
 
 ### Packaging Our Code
 
@@ -185,11 +203,11 @@ By convention installable package (the type we install with `pip`) names use hyp
 While we could choose to use underscores in an installable package name, we cannot use hyphens in a code package name, as Python will interpret them as a minus sign when we try to import them.
 
 ~~~ bash
-mv poetry_project poetry_project_jgraham
+mv inflammation inflammation_jgraham
 ~~~
 {: .language-bash}
 
-Once we've got out `pyproject.toml` configuration done and our code in the right structure, we can go ahead and build a distributable version of our software:
+Once we've got our `pyproject.toml` configuration done and our code in the right structure, we can go ahead and build a distributable version of our software:
 
 ~~~ bash
 poetry build
@@ -200,7 +218,7 @@ This should produce two files for us in the `dist` directory.
 The one we care most about is the `.whl` or **wheel** file.
 This is the file that `pip` uses to distribute and install Python packages, so this is the file we'd need to share with other people who want to install our software.
 
-To install this wheel file, we can give it to `pip`:
+Now if we gave this wheel file to someone else, they could install it using `pip` - you don't need to run this command yourself, you've already installed it using `poetry install` above.
 
 ~~~ bash
 pip3 install dist/poetry_project*.whl
@@ -218,7 +236,7 @@ Packages uploaded to the test index aren't accessible to a normal `pip install`,
 
 Firstly, we need to create an account at [https://test.pypi.org/](https://test.pypi.org/).
 Click the register link to the top right, and fill in your account details.
-Once you've created your account, you may receive an email asking you to verify the account creation.
+Once you've created your account, click the link to request a verification email and then click the link in the email to verify your account.
 
 Now, we need to tell Poetry about our account on the test PyPI server.
 When we enter the second of the following commands, Poetry will also ask us to enter our password:
@@ -249,9 +267,12 @@ poetry publish -r testpypi
 {: .language-bash}
 
 If we now go to [https://test.pypi.org](https://test.pypi.org/) and search for our package name, we should find our newly published software.
-We can even install this package ourselves using `pip`, but we need to tell `pip` to use the testing version of PyPI:
+If it's not there yet, try again in a minute - it sometimes takes a couple of minutes to show up.
+We can even install this package ourselves using `pip`, but we need to tell `pip` to use the testing version of PyPI and make sure we've got rid of the previous installation:
 
 ~~~ bash
+source .venv/bin/activate
+pip3 uninstall <your package name>
 pip3 install -i https://test.pypi.org/simple/ <your package name>
 ~~~
 {: .language-bash}
