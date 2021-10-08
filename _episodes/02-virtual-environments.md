@@ -9,8 +9,11 @@ questions:
 objectives:
 - "Explain the features and benefits of virtual environments."
 - "Use pyenv to switch between multiple versions of Python."
+- "Explain how version numbers can be used to indicate change."
 keypoints:
 - "Virtual environments help us to isolate our dependencies from the system."
+- "To test our code with different versions of Python we can use pyenv."
+- "Appropriate use of version numbers can indicate to users of software when substantial changes have been made and whether they should consider updating."
 ---
 
 ## Virtual Environments and Dependencies
@@ -39,7 +42,7 @@ mv software-engineering-day4-gh-pages se-day4
 Change to the `code` directory within that new directory:
 
 ~~~ bash
-cd 2020-se-day4/code
+cd se-day4/code
 ~~~
 {: .language-bash}
 
@@ -153,7 +156,7 @@ It could quickly become confusing as to which packages and package versions are 
 Additionally, different scripts may need to use different versions of the same package.
 
 A Python virtual environment is an isolated working copy (you can think of it as a self-contained directory tree) of a specific version of Python together with specific versions of a number of installed packages which allows you to work on a particular project without worry of affecting other projects.
-In other words, it enables multiple side-by-side installations of Python and different versions of the same third party package to coexist on your machine and only one to be selected for each of your projects.
+In other words, it enables multiple side-by-side installations of Python and different versions of the same third party package to coexist on your machine and only one to be used for each of your projects.
 As more dependencies are added to your Python project over time, you can add them to this specific virtual environment and avoid a great deal of confusion by having separate virtual environments for each project.
 
 Here are some typical virtual environment use cases:
@@ -161,12 +164,13 @@ Here are some typical virtual environment use cases:
 - You have an older project that only works under Python 2.
   You do not have the time to migrate the project to Python 3 or it may not even be possible as some of the third party dependencies are not available under Python 3.
   You have to start another project under Python 3.
-  The best way to do this on a single machine is to set up 2 separate Python virtual environments.
+  The best way to do this on a single machine is to set up 2 separate Python virtual environments, one for each version of Python.
 - One of your projects is locked to use a particular older version of a third party dependency.
   You cannot use the latest version of the dependency as it breaks things in your project.
   In a separate branch of your project, you want to try and fix problems introduced by the new version of the dependency without affecting the working version of your project.
 
-You do not have to worry too much about specific versions of packages that your project depends on most of the time. Virtual environments enable you to always use the latest available version without specifying it explicitly. They also enable you to use a specific older version of a package for your project, should you need to.
+You do not have to worry too much about specific versions of packages that your project depends on most of the time. Virtual environments enable you to always use the latest available version without specifying it explicitly.
+They also enable you to use a specific older version of a package for your project, should you need to.
 
 ### Requirements Files
 
@@ -182,8 +186,14 @@ pip3 list
 {: .language-bash}
 
 If you don't see any listed packages, you're probably either in a new virtual environment, or not in a virtual environment at all.
-Since we've been installing everything so far, in virtual environments, there shouldn't be anything installed in your main version of Python.
 Try activating one of our previous virtual environments, or creating a new one and installing a few packages to see if they show up now.
+
+~~~ bash
+python3 -m venv venv
+source /venv/bin/activate
+pip3 list
+deactivate
+~~~
 
 List is useful if we want to check if we remembered to install a particular package, but we have another command that's more useful for sharing our package list:
 
@@ -281,14 +291,14 @@ which pyenv
 ~~~
 {: .output}
 
-Let's say we want to try out the latest version of Python (3.10 at the time of writing), we can install this with pyenv.
+Let's say we want to try out the latest development version of Python (3.11 at the time of writing), we can install this with pyenv.
 Be aware that this might take a couple of minutes to complete, as it's downloading and configuring a full installation of a new version of Python.
 We also might see a couple of warnings about missing libraries such as `bz2`, `readline`, or `sqlite`, but this is also fine for the time being.
 If you want to use pyenv as part of your development process in the future, it's probably a good idea to install these libraries later on.
 On Ubuntu, this can be done with `apt-get`, as we have with a few other things in the past.
 
 ~~~ python
-pyenv install 3.10
+pyenv install 3.11-dev
 ~~~
 {: .language-bash}
 
@@ -297,41 +307,41 @@ Now, in our code directory, we can tell pyenv which version we want to use:
 ~~~
 cd
 cd se-day4/code
-pyenv local 3.10
+pyenv local 3.11-dev
 ~~~
 {: .language-bash}
 
-Now, whenever we use Python in this directory, it will be our new Python 3.10 installation.
+Now, whenever we use Python in this directory, it will be our new Python 3.11 installation.
 We can even use this Python to create a new virtual environment.
 
 We can test this by asking Python what its version number is:
 
 ~~~
-python --version
+python3 --version
 ~~~
 {: .language-bash}
 
 ~~~
-Python 3.10.0
+Python 3.11.0a1+
 ~~~
 {: .output}
 
 > ## Python Version Numbers
 >
-> At the time these materials were first written, installing `3.10-dev` got us a version of Python with a version number of `3.10.0a1+`.
+> At the time these materials were first written, installing `3.11-dev` got us a version of Python with a version number of `3.11.0a1+`.
 > What does this version number mean?
 > When we share our code, should we tell people to use this version?
 > Why, or why not?
 >
 > > ## Solution
 > >
-> > The version number `3.10.0a1+` has a few more components than we've seen previously:
+> > The version number `3.11.0a1+` has a few more components than we've seen previously:
 > >
 > > - The major version is `3`
-> > - The minor version is `10`
-> > - The patch version is `0` - this is part of the first proper release in the `3.10` series
+> > - The minor version is `11`
+> > - The patch version is `0` - this is part of the first proper release in the `3.11` series
 > > - `a1` means that this is the first **alpha release** in this series
-> > - `+` means that this is a development version and some changes have been made since the actual `3.10.0a1` release
+> > - `+` means that this is a development version and some changes have been made since the actual `3.11.0a1` release
 > >
 > > Before a stable release (one which is considered reliable), we often release alpha and beta versions.
 > > An alpha or beta version allows people to try out some of the new things we've added, but is a warning that it should not be relied on.
@@ -341,7 +351,7 @@ Python 3.10.0
 > > The advantage of a development version is it allows us to try out the very latest additions, and report any bugs that we find.
 > >
 > > Because this is an alpha release, but we're also using the very latest code, we should not say that this is a required version of Python.
-> > If we want to use some of the functionality in Python 3.10, we should wait for the full `3.10.0` release before sharing our instructions.
+> > If we want to use some of the functionality in Python 3.11, we should wait for the full `3.11.0` release before sharing our instructions.
 > {: .solution}
 {: .challenge}
 
