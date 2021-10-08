@@ -317,7 +317,7 @@ Using a `setup.py` gives us the flexibility to handle building these components 
 In the template repository for one of the SABS mini-projects, we have an example of a basic, general purpose `setup.py` file.
 You can find this file [https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py](https://github.com/SABS-R3/2020-software-engineering-projects-pk/blob/master/setup.py).
 
-> ## Our Own Setup.py
+> ## Our Own Setup.py (Optional)
 >
 > Compare this example `setup.py` file to the Poetry `pyproject.toml` file we created previously.
 > At the bottom, in the arguments to the `setup` function, we have many of the same pieces of metadata.
