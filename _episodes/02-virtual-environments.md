@@ -297,7 +297,7 @@ We also might see a couple of warnings about missing libraries such as `bz2`, `r
 If you want to use pyenv as part of your development process in the future, it's probably a good idea to install these libraries later on.
 On Ubuntu, this can be done with `apt-get`, as we have with a few other things in the past.
 
-~~~ python
+~~~ bash
 pyenv install 3.11-dev
 ~~~
 {: .language-bash}
