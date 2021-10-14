@@ -44,6 +44,13 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 ~~~
 {: .language-bash}
 
+We then need to add a line to the bottom of our `.bashrc` file in the same way we did for `pyenv`:
+
+~~~ bash
+export PATH="$HOME/.poetry/bin:$PATH"
+~~~
+{: .language-bash}
+
 While Poetry is installing, it lets us know that we might have to run an extra command before we can use it.
 Once it's finished installing, the simplest thing to do here is to just close our terminal and open another one.
 Then the changes that Poetry makes should have been applied automatically for us.
