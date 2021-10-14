@@ -44,15 +44,23 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 ~~~
 {: .language-bash}
 
+If this fails, it's possible we need to install an extra dependency and try again:
+
+~~~ bash
+sudo apt install virtualenv
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+~~~
+{: .language-bash}
+
 We then need to add a line to the bottom of our `.bashrc` file in the same way we did for `pyenv`:
 
 ~~~ bash
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 ~~~
 {: .language-bash}
 
 While Poetry is installing, it lets us know that we might have to run an extra command before we can use it.
-Once it's finished installing, the simplest thing to do here is to just close our terminal and open another one.
+Once we've finished installing, the simplest thing to do here is to just close our terminal and open another one.
 Then the changes that Poetry makes should have been applied automatically for us.
 
 To test, we can ask where Poetry is installed:
@@ -63,7 +71,7 @@ which poetry
 {: .language-bash}
 
 ~~~
-/home/sabsr3/.poetry/bin/poetry
+/home/sabsr3/.local/bin/poetry
 ~~~
 {: .output}
 
