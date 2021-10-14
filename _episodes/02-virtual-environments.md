@@ -190,7 +190,7 @@ Try activating one of our previous virtual environments, or creating a new one a
 
 ~~~ bash
 python3 -m venv venv
-source /venv/bin/activate
+source venv/bin/activate
 pip3 list
 deactivate
 ~~~
