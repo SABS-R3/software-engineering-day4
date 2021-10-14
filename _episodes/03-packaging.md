@@ -52,14 +52,15 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 ~~~
 {: .language-bash}
 
-We then need to add a line to the bottom of our `.bashrc` file in the same way we did for `pyenv`:
+Once Poetry has installed itself, we need to make sure our shell can find it - the install process should give you a line to be added at the bottom of your shell config file.
+If you're on Ubuntu, the file we need to add it to is `~/.bashrc` and the line should be similar to the one below.
+If you're on MacOS, the file will probably be `~/.zshrc` and the line to add will be slightly different.
 
 ~~~ bash
 export PATH="$HOME/.local/bin:$PATH"
 ~~~
 {: .language-bash}
 
-While Poetry is installing, it lets us know that we might have to run an extra command before we can use it.
 Once we've finished installing, the simplest thing to do here is to just close our terminal and open another one.
 Then the changes that Poetry makes should have been applied automatically for us.
 
@@ -75,8 +76,9 @@ which poetry
 ~~~
 {: .output}
 
-If you don't get this output, then we should try activating it manually and checking again.
+If you don't get this output, then we can try activating it manually and checking again.
 This would need to be done each time we open a new terminal and want to use Poetry.
+The file to source might be different depending on your system.
 
 ~~~ bash
 source $HOME/.poetry/env
@@ -254,11 +256,12 @@ Click the register link to the top right, and fill in your account details.
 Once you've created your account, click the link to request a verification email and then click the link in the email to verify your account.
 
 Now, we need to tell Poetry about our account on the test PyPI server.
-When we enter the second of the following commands, Poetry will also ask us to enter our password:
+Replace `your_pypi_username` with your actual test.pypi.org username.
+When we enter the second of the following commands, Poetry will also ask us to enter our test.pypi.org password:
 
 ~~~ bash
 poetry config repositories.testpypi https://test.pypi.org/legacy/
-poetry config http-basic.testpypi <your username>
+poetry config http-basic.testpypi your_pypi_username
 ~~~
 {: .language-bash}
 
@@ -283,12 +286,13 @@ poetry publish -r testpypi
 
 If we now go to [https://test.pypi.org](https://test.pypi.org/) and search for our package name, we should find our newly published software.
 If it's not there yet, try again in a minute - it sometimes takes a couple of minutes to show up.
-We can even install this package ourselves using `pip`, but we need to tell `pip` to use the testing version of PyPI and make sure we've got rid of the previous installation:
+We can even install this package ourselves using `pip`, but we need to tell `pip` to use the testing version of PyPI and make sure we've got rid of the previous installation.
+In this example, replace `your_package_name` with the name of your package from `pyproject.toml`
 
 ~~~ bash
 source .venv/bin/activate
-pip3 uninstall <your package name>
-pip3 install -i https://test.pypi.org/simple/ <your package name>
+pip3 uninstall your_package_name
+pip3 install -i https://test.pypi.org/simple/ your_package_name
 ~~~
 {: .language-bash}
 
