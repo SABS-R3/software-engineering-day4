@@ -22,15 +22,15 @@ See topic [video lecture](https://www.youtube.com/watch?v=hDSKafGlgWI), and [Pow
 
 ## Set up training materials
 
-So let's download the training materials for this material from the GitHub code repository online. Go to [https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages](https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages) in a browser (any will do, although Firefox is already installed on the provided laptops). Select the green `Code` button, and then select `Download ZIP`, and then in Firefox selecting `Save File` at the dialogue prompt. This will download all the files within a single archive file. After it's finished downloading, we need to extract all files from the archive. Find where the file has been downloaded to (on the provided laptops this is `/home/sabsr3/Downloads`, then start a terminal. You can start a terminal by right-clicking on the desktop and selecting `Open in Terminal`. Assuming the file has downloaded to e.g. `/home/sabsr3/Downloads`, type the following within the Terminal shell:
+So let's download the training materials for this material from the GitHub code repository online. Go to [https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages](https://github.com/SABS-R3/software-engineering-day4/tree/gh-pages) in a browser (any will do, although Firefox is already installed on the provided laptops). Select the green `Code` button, and then select `Download ZIP`, and then in Firefox selecting `Save File` at the dialogue prompt. This will download all the files within a single archive file. After it's finished downloading, we need to extract all files from the archive. Find where the file has been downloaded to (on the provided laptops this is `/home/dtcse/Downloads`, then start a terminal. You can start a terminal by right-clicking on the desktop and selecting `Open in Terminal`. Assuming the file has downloaded to e.g. `/home/dtcse/Downloads`, type the following within the Terminal shell:
 
 ~~~ bash
 cd ~
-unzip /home/sabsr3/Downloads/software-engineering-day4-gh-pages.zip
+unzip /home/dtcse/Downloads/software-engineering-day4-gh-pages.zip
 ~~~
 {: .language-bash}
 
-The first `cd ~` command *changes our working directory* to our home directory (on the provisioned laptops, this is `/home/sabsr3`).
+The first `cd ~` command *changes our working directory* to our home directory (on the provisioned laptops, this is `/home/dtcse`).
 
 The second command uses the unzip program to unpack the archive in your home directory, within a subdirectory called `software-engineering-day4-gh-pages`. This subdirectory name is a little long to easily work with, so we'll rename it to something shorter:
 
@@ -271,13 +271,13 @@ code .bashrc
 The lines we need to add to the bottom are:
 
 ~~~ bash
-export PATH="/home/sabsr3/.pyenv/bin:$PATH"
+export PATH="/home/dtcse/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ~~~
 {: .source}
 
-Take care that these lines are correct before saving the file - if your username isn't `sabsr3`, replace that bit with your actual username.
+Take care that these lines are correct before saving the file - if your username isn't `dtcse`, replace that bit with your actual username.
 Now close and reopen your terminal, so that it can get the new configuration.
 With the installation process completed, we should now be able to find pyenv:
 
@@ -287,7 +287,7 @@ which pyenv
 {: .language-bash}
 
 ~~~ bash
-/home/sabsr3/.pyenv/bin/pyenv
+/home/dtcse/.pyenv/bin/pyenv
 ~~~
 {: .output}
 

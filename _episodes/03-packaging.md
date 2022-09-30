@@ -72,7 +72,7 @@ which poetry
 {: .language-bash}
 
 ~~~
-/home/sabsr3/.local/bin/poetry
+/home/dtcse/.local/bin/poetry
 ~~~
 {: .output}
 
@@ -87,7 +87,7 @@ which poetry
 {: .language-bash}
 
 ~~~
-/home/sabsr3/.poetry/bin/poetry
+/home/dtcse/.poetry/bin/poetry
 ~~~
 {: .output}
 
