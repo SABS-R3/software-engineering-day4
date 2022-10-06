@@ -291,14 +291,14 @@ which pyenv
 ~~~
 {: .output}
 
-Let's say we want to try out the latest development version of Python (3.11 at the time of writing), we can install this with pyenv.
+Let's say we want to try out the latest development version of Python (3.12 at the time of writing), we can install this with pyenv.
 Be aware that this might take a couple of minutes to complete, as it's downloading and configuring a full installation of a new version of Python.
 We also might see a couple of warnings about missing libraries such as `bz2`, `readline`, or `sqlite`, but this is also fine for the time being.
 If you want to use pyenv as part of your development process in the future, it's probably a good idea to install these libraries later on.
 On Ubuntu, this can be done with `apt-get`, as we have with a few other things in the past.
 
 ~~~ bash
-pyenv install 3.11-dev
+pyenv install 3.12-dev
 ~~~
 {: .language-bash}
 
@@ -307,7 +307,7 @@ Now, in our code directory, we can tell pyenv which version we want to use:
 ~~~
 cd
 cd se-day4/code
-pyenv local 3.11-dev
+pyenv local 3.12-dev
 ~~~
 {: .language-bash}
 
@@ -322,7 +322,7 @@ python3 --version
 {: .language-bash}
 
 ~~~
-Python 3.11.0a1+
+Python 3.12.0a0
 ~~~
 {: .output}
 
