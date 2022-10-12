@@ -234,6 +234,8 @@ deactivate
 ~~~
 {: .language-bash}
 
+*What follows are the instructions for installing Pyenv on Linux. **If you are installing on Mac, you will need to have [Homebrew](https://brew.sh/) installed, and then [follow these instructions instead](https://github.com/pyenv/pyenv#homebrew-in-macos)** to install Pyenv.*
+
 The recommended install method on Linux is by downloading and running a Bash script from their GitHub repository.
 To do this from the command line, we can use a tool called `curl`.
 Since `curl` may not be installed by default, we should install it ourselves using the Ubuntu package manager `apt-get`.
